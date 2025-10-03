@@ -66,6 +66,9 @@ sudo make install
 #Vérification de l'installation
 snort -V 
 
+sudo systemctl enable kibana
+sudo systemctl enable elasticsearch
+
 #Création des répertoires nécessaires
 sudo mkdir /etc/snort
 sudo mkdir /etc/snort/rules
