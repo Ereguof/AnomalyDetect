@@ -7,7 +7,7 @@ sudo hostnamectl set-hostname Collecteur
 sudo ifdown enp0s3
 sudo ifdown enp0s8
 
-sudo tee /etc/network/interfaces > /dev/null <<EOF
+sudo tee /etc/network/interfaces > /dev/null << 'EOF'
 # Boucle locale
 auto lo
 iface lo inet loopback
