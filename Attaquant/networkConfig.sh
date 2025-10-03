@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 sudo hostnamectl set-hostname ServeurWeb
 
 sudo ifdown enp0s3
