@@ -23,5 +23,6 @@ Pour ce faire, nous avons utilisé une combinaison d'outils ainsi qu'une simulat
 ## Analyse et conclusion
 
 ## Utilisation de l'IA générative
-Production partagée avec l’IAg
+Production partagée avec l’IA générative pour la production de code : 
+
 ![Pictogramme IA](Documentation/Images/IAg_partagee_compact.png)
