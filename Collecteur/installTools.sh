@@ -66,3 +66,15 @@ sudo make install
 #Vérification de l'installation
 snort -V 
 
+#Création des répertoires nécessaires
+sudo mkdir /etc/snort
+sudo mkdir /etc/snort/rules
+sudo mkdir /var/log/snort
+sudo mkdir /usr/local/lib/snort_dynamicrules
+sudo touch /etc/snort/snort.conf
+sudo touch /etc/snort/rules/local.rules
+sudo chmod -R 5775 /etc/snort
+sudo chmod -R 5775 /var/log/snort
+sudo chmod -R 5775 /usr/local/lib/snort_dynamicrules
+
+
