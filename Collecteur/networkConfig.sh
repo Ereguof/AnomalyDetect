@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 sudo hostnamectl set-hostname Collecteur
 
 sudo ifdown enp0s3
