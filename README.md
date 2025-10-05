@@ -64,7 +64,7 @@ Pour les scénarios, nous avons choisi de mettre en place 5 attaques successives
 
 **Attention** : les attaques 1,2 et 3 peuvent être effectuées indépendamment les unes des autres, mais les attaques 4 et 5 nécessitent d'avoir réussi l'attaque précédente pour être réalisables. En effet, l'attaque 4 nécessite d'avoir un accès shell sur le serveur web, et l'attaque 5 nécessite d'avoir des privilèges root sur le serveur web.
 
-Après avoir configuré toutes les machines comme indiqué dans les fichiers d'installation, passez en mode **root** sur la VM de l’attaquant (sur laquelle on restera pour effectuer toute la rotation d’attaque) avec `su -` et le mot de passe de la machine. Nous sommes conscient que l'utilisation de root n'est pas une bonne pratique de sécurité dans le monde réel, mais cela simplifie beaucoup la réalisation des attaques dans le cadre de ce TP.
+Après avoir configuré toutes les machines comme indiqué dans les fichiers d'installation, vérifiez que vous êtes en mode **root** sur la VM de l’attaquant (sur laquelle on restera pour effectuer toute la rotation d’attaque) avec `su -` et le mot de passe de la machine, puis que vous êtes placés dans le dossier /root. Nous sommes conscient que l'utilisation de root n'est pas une bonne pratique de sécurité dans le monde réel, mais cela simplifie beaucoup la réalisation des attaques dans le cadre de ce TP.
 
 Le déroulement pas à pas des scénarios d'attaque est disponible dans le fichier [Documentation/ScenariosAttaque.md](Documentation/ScenariosAttaque.md).
 
