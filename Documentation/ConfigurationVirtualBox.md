@@ -10,6 +10,7 @@ Voici les étapes pour configurer VirtualBox afin de simuler le réseau d'entrep
    - Charger l’image ISO de Debian téléchargée précédemment
    - Choisir "Linux" comme type, "Debian" comme subtype et "Debian (64-bit)" comme version
    - Choisir "debian" comme nom d'utilisateur et "debian" comme mot de passe par défaut (par mesure de simplicité pour le TP)
+   - Ajouter les Guest Additions
    - Allouer au moins 2048 MB de RAM et 2 CPU
    - Créer un disque dur virtuel de type VDI, dynamiquement alloué, avec une taille d’au moins 20 GB
 4. Créer 2 clones de cette VM pour obtenir les 3 machines nécessaires (clic droit sur la VM > "Cloner") et nommez-les respectivement "ServeurWeb" et "Attaquant".
