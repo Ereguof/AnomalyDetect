@@ -1,15 +1,6 @@
 
 # Scénarios d'attaque
 
-## Contexte
-
-Un acteur malveillant est parvenu à déjouer la sécurité physique de l’entreprise et à se connecter sur le même réseau qu’une machine contenant un fichier critique pour l’organisation. Mais notre solution **AnomalyDetect** est également mise en place dans le réseau, et va nous permettre de visualiser les différentes phases d’attaque de cet acteur.
-
-Pour les scénarios, nous avons choisi de mettre en place 5 attaques successives, imitant un cas réaliste et le cheminement logique d’un attaquant qui effectue une reconnaissance, obtient des informations, s'introduit dans le système, réussit à effectuer une élévation de privilège puis exfiltre des informations. Ces 5 différentes attaques seront décrites et justifiées notamment en utilisant la matrice ATT&CK du MITRE (https://attack.mitre.org/matrices/enterprise). 
-
-Avant de commencer la simulation des attaques, passez en mode **root** sur la VM de l’attaquant (sur laquelle on restera pour effectuer toute la rotation d’attaque) avec `su -` et le mot de passe de la machine.
-
-
 ## Attaque 1 - Scan de ports
 
 L’attaquant étant déjà sur le réseau, il a déjà sondé ce dernier afin de découvrir quels sont les appareils présents. Son attention se porte sur un serveur web dont il scanne les ports. Le balayage de ports permet de récupérer beaucoup d’informations sur la cible, notamment ses ports ouverts.
@@ -20,7 +11,7 @@ L’outil utilisé ici est **nmap**, un scanner de ports qui permet d’avoir un
 
 L’attaque se réalise comme ceci à partir de la VM de l’attaquant : 
 
-`# nmap 10.0.0.1`
+`nmap 10.0.0.1`
 
 2 ports devraient être ouverts sur le serveur web : **SSH** (port 22) et **HTTP** (port 80)
 
@@ -107,7 +98,7 @@ L’attaque se réalise comme ceci :
 
 Puis se connecter en donnant le mot de passe de la VM attaquant.
 
-Si tout s’est bien passé, l’image devrait être accessible sur la VM attaquant, et nous vous laissons découvrir ce fichier primordial pour la sécurité du canada.
+Si tout s’est bien passé, l’image devrait être accessible sur la VM attaquant, et nous vous laissons découvrir ce fichier primordial pour la sécurité du Canada.
 
 Des logs / une alerte sont attendus :
 
