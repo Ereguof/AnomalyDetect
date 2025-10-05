@@ -3,7 +3,7 @@
 Voici les étapes pour configurer VirtualBox afin de simuler le réseau d'entreprise interne nécessaire pour ce projet :
 
 1. Installer VirtualBox (version 7.1.8 utilisée pour ce TP) depuis le site officiel : https://www.virtualbox.org/wiki/Downloads
-2. Télécharger l’image ISO de Debian 1.13.0 AMD64 depuis le site officiel : https://www.debian.org/distrib/
+2. Télécharger l’image ISO de Debian 1.13.0 AMD64 depuis le site officiel : https://www.debian.org
 3. Créer 1 machine virtuelle Debian qui servira de modèle pour les 3 machines nécessaires :
    - Ouvrir VirtualBox et cliquer sur "Nouveau"
    - Nommer la VM "Collecteur"
