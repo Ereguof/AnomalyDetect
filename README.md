@@ -36,13 +36,13 @@ Leurs addresses IP sont les suivantes :
 - Collecteur : 10.0.0.2
 - Attaquant : 10.0.0.3
 
-*TODO* : Ajouter un schéma de l'architecture réseau
+![Schéma du réseau](Documentation/Images/reseau.png)
 
 ## Installation
 
 ### VirtualBox 
 
-Les détails de la configuration de VirtualBox sont disponibles dans le fichier [Documentation/ConfigurationVM.md](Documentation/ConfigurationVirtualBox.md).
+Les détails de la configuration de VirtualBox sont disponibles dans le fichier [Documentation/ConfigurationVirtualBox.md](Documentation/ConfigurationVirtualBox.md).
 
 ### Collecteur 
 
