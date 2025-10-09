@@ -70,6 +70,10 @@ Le déroulement pas à pas des scénarios d'attaque est disponible dans le fichi
 
 ## Analyse et conclusion
 
+## Architectures
+
+Les architectures du réseau et des outils sont visible sur ce [Draw.io](https://drive.google.com/file/d/1tJoP6xTQe7KS_3r97ArBQE4mA4jIa7D2/view?usp=sharing)
+
 ## Utilisation de l'IA générative
 Production partagée avec l’IA générative pour la production de code : 
 
