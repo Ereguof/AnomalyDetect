@@ -38,6 +38,8 @@ Leurs addresses IP sont les suivantes :
 
 ![Schéma du réseau](Documentation/Images/reseau.png)
 
+Une architecture plus précise du réseau et des outils sont visible sur ce [Draw.io](https://drive.google.com/file/d/1tJoP6xTQe7KS_3r97ArBQE4mA4jIa7D2/view?usp=sharing)
+
 ## Installation
 
 ### VirtualBox 
@@ -70,9 +72,28 @@ Le déroulement pas à pas des scénarios d'attaque est disponible dans le fichi
 
 ## Analyse et conclusion
 
-## Architectures
+### Limites du Projet
 
-Les architectures du réseau et des outils sont visible sur ce [Draw.io](https://drive.google.com/file/d/1tJoP6xTQe7KS_3r97ArBQE4mA4jIa7D2/view?usp=sharing)
+Notre projet dans son état actuel est conçu pour des systèmes basés sur Debian, ce qui limite sa portabilité sur d'autres distributions Linux trop différentes ou systèmes d'exploitation (comme Windows ou macOS).
+
+Les scripts nécessitent également des droits administratifs (sudo), ce qui peut poser problème dans des environnements restreints.
+
+Certains outils, notamment Snort furent particulièrement difficiles à mettre en place de par les prérequis à son installation n'étant plus forcément mis-à-jour ou non disponibles dans les packages officiels.
+
+Enfin, bien que les scripts automatisent certaines tâches, ils ne gèrent pas les erreurs complexes ou les cas particuliers (par exemple, si un service entre en conflit avec un autre existant).
+
+### Améliorations Possibles
+
+Ces limites nous offrent aussi des pistes d'amélioration : 
+
+- Faire de la portabilité en adaptant les scripts pour détecter automatiquement le système d'exploitation et ajuster les commandes en conséquence et fournir des versions compatibles avec d'autres systèmes (par exemple, PowerShell pour Windows)
+- Ajouter des vérifications pour détecter les erreurs courantes (comme des dépendances manquantes ou des services déjà actifs) et inclure des messages d'erreur plus explicites pour guider l'utilisateur
+- Intégrer plus d'outils et de visualisations pour couvrir une plus grande variété d'attaques possibles contre le système
+
+### Perspectives
+
+A l'avenir, il serait intéressant de suivre les évolutions des outils utilisés avec une veille technologique pour garantir leur compatibilité et leur efficacité, et d'explorer des alternatives modernes ou plus performantes pour certaines tâches (par exemple, remplacer snort par un autre IDS plus moderne).
+Nous souhaiterions également étendre le projet pour inclure des fonctionnalités supplémentaires, comme l'intégration d'autres outils de monitoring.
 
 ## Utilisation de l'IA générative
 Production partagée avec l’IA générative pour la production de code : 
