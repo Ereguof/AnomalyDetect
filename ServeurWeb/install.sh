@@ -3,7 +3,7 @@
 
 set -e
 
-bash installServer.sh
 bash networkConfig.sh
+bash installServer.sh
 
 echo "Installation completed successfully."

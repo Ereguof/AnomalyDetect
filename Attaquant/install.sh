@@ -3,10 +3,6 @@
 
 set -e
 
-# Execute installTools.sh
-bash installTools.sh
-
-# Execute networkConfig.sh
 bash networkConfig.sh
-
+bash installTools.s
 echo "Installation completed successfully."
