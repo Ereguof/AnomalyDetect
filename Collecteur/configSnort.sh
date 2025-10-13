@@ -48,6 +48,7 @@ preprocessor stream5_icmp: timeout 30
 # Configuration de sortie
 output alert_fast: alerts.txt
 output log_tcpdump: snort.log
+output alert_syslog: LOG_LOCAL1 LOG_ALERT
 
 # Inclusion des règles
 include $RULE_PATH/local.rules
@@ -95,40 +96,67 @@ alert tcp any any -> $WEB_SERVER $SSH_PORTS (msg:"[ATTAQUE 3] Échecs multiples 
 alert tcp any any -> $WEB_SERVER $SSH_PORTS (msg:"[ATTAQUE 3] Activité Hydra SSH suspectée"; flow:to_server,established; content:"SSH-2.0"; depth:20; threshold:type both, track by_src, count 15, seconds 120; sid:2000012; rev:1; classtype:attempted-user;)
 
 # ===== ATTAQUE 4 - ESCALADE DE PRIVILÈGES =====
-# Détection de commandes sudo suspectes (difficile via réseau, mais on peut détecter des patterns)
-alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 4] Activité administrative suspecte détectée"; flow:from_server,established; content:"sudo"; sid:2000013; rev:1; classtype:suspicious-login;)
+# Note: L'escalade de privilèges est principalement locale, donc détection indirecte
 
-# Détection de shells privilégiés (connexions root sortantes)
-alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 4] Shell privilégié détecté"; flow:from_server,established; content:"root"; sid:2000014; rev:1; classtype:suspicious-login;)
+# Détection de mots-clés privilégiés dans le trafic réseau (SSH non-chiffré, telnet, etc.)
+alert tcp any any <> $WEB_SERVER any (msg:"[ATTAQUE 4] Commande sudo détectée dans le trafic"; flow:established; content:"sudo"; nocase; sid:2000013; rev:1; classtype:suspicious-login;)
+alert tcp any any <> $WEB_SERVER any (msg:"[ATTAQUE 4] Référence root détectée dans le trafic"; flow:established; content:"root"; nocase; sid:2000014; rev:1; classtype:suspicious-login;)
+
+# Détection de commandes d'élévation spécifiques
+alert tcp any any <> $WEB_SERVER any (msg:"[ATTAQUE 4] Commande su détectée"; flow:established; content:" su "; nocase; sid:2000015; rev:1; classtype:suspicious-login;)
+alert tcp any any <> $WEB_SERVER any (msg:"[ATTAQUE 4] Escalade via gcc détectée"; flow:established; content:"gcc"; nocase; content:"wrapper"; nocase; distance:0; within:50; sid:2000016; rev:1; classtype:suspicious-login;)
+
+# Détection de shells privilégiés dans les réponses
+alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 4] Prompt root détecté"; flow:from_server,established; content:"root@"; nocase; sid:2000017; rev:1; classtype:suspicious-login;)
+alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 4] Shell root détecté"; flow:from_server,established; content:"# "; depth:2; sid:2000018; rev:1; classtype:suspicious-login;)
+
+# Détection de connexions sortantes inhabituelles depuis le serveur (indicateur post-élévation)
+alert tcp $WEB_SERVER any -> !$HOME_NET any (msg:"[ATTAQUE 4] Connexion sortante suspecte depuis serveur"; flow:to_server,established; flags:S; sid:2000019; rev:1; classtype:suspicious-login;)
+
+# Détection de nouvelles connexions SSH sortantes (comportement inhabituel pour un serveur web)
+alert tcp $WEB_SERVER any -> any $SSH_PORTS (msg:"[ATTAQUE 4] Connexion SSH sortante depuis serveur web"; flow:to_server,established; flags:S; sid:2000020; rev:1; classtype:policy-violation;)
+
+# Détection de trafic sur des ports privilégiés sortants (ports < 1024)
+alert tcp $WEB_SERVER 1:1023 -> any any (msg:"[ATTAQUE 4] Trafic depuis port privilégié"; flow:from_server,established; sid:2000021; rev:1; classtype:suspicious-login;)
+
+# Détection de commandes exécutées via des connexions existantes (changement de comportement)
+alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 4] Activité inhabituelle depuis serveur"; flow:from_server,established; dsize:>500; threshold:type both, track by_src, count 5, seconds 60; sid:2000022; rev:1; classtype:suspicious-login;)
+
+# Détection de tentatives de rebond (pivot) vers d'autres machines
+alert tcp $WEB_SERVER any -> $HOME_NET any (msg:"[ATTAQUE 4] Tentative de pivot réseau détectée"; flow:to_server,established; flags:S; threshold:type both, track by_dst, count 3, seconds 30; sid:2000023; rev:1; classtype:suspicious-login;)
+
+# Détection de protocoles non-chiffrés potentiellement utilisés pour l'administration
+alert tcp any any -> $WEB_SERVER 23 (msg:"[ATTAQUE 4] Connexion Telnet détectée"; flow:to_server,established; sid:2000024; rev:1; classtype:suspicious-login;)
+alert tcp any any -> $WEB_SERVER 513 (msg:"[ATTAQUE 4] Connexion rlogin détectée"; flow:to_server,established; sid:2000025; rev:1; classtype:suspicious-login;)
 
 # ===== ATTAQUE 5 - EXFILTRATION DE DONNÉES =====
 # Détection de transferts SCP sortants depuis le serveur
-alert tcp $WEB_SERVER any -> any $SSH_PORTS (msg:"[ATTAQUE 5] Exfiltration SCP détectée depuis serveur"; flow:to_server,established; content:"scp"; sid:2000015; rev:1; classtype:policy-violation;)
+alert tcp $WEB_SERVER any -> any $SSH_PORTS (msg:"[ATTAQUE 5] Exfiltration SCP détectée depuis serveur"; flow:to_server,established; content:"scp"; sid:2000026; rev:1; classtype:policy-violation;)
 
 # Détection de gros transferts de données sortants
-alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 5] Transfert volumineux sortant détecté"; flow:from_server,established; dsize:>10000; threshold:type limit, track by_src, count 1, seconds 10; sid:2000016; rev:1; classtype:policy-violation;)
+alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 5] Transfert volumineux sortant détecté"; flow:from_server,established; dsize:>10000; threshold:type limit, track by_src, count 1, seconds 10; sid:2000027; rev:1; classtype:policy-violation;)
 
 # Détection de connexions SSH sortantes depuis le serveur (inhabituel)
-alert tcp $WEB_SERVER any -> any $SSH_PORTS (msg:"[ATTAQUE 5] Connexion SSH sortante depuis serveur"; flow:to_server,established; flags:S; sid:2000017; rev:1; classtype:policy-violation;)
+alert tcp $WEB_SERVER any -> any $SSH_PORTS (msg:"[ATTAQUE 5] Connexion SSH sortante depuis serveur"; flow:to_server,established; flags:S; sid:2000028; rev:1; classtype:policy-violation;)
 
 # Détection spécifique pour fichiers .jpg (exfiltration d'images)
-alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 5] Exfiltration possible de fichier image"; flow:from_server,established; content:".jpg"; nocase; sid:2000018; rev:1; classtype:policy-violation;)
+alert tcp $WEB_SERVER any -> any any (msg:"[ATTAQUE 5] Exfiltration possible de fichier image"; flow:from_server,established; content:".jpg"; nocase; sid:2000029; rev:1; classtype:policy-violation;)
 
 # ===== RÈGLES GÉNÉRALES DE SURVEILLANCE =====
 # Surveillance générale du trafic vers/depuis le serveur web
-log tcp any any -> $WEB_SERVER any (msg:"Trafic TCP vers serveur web"; sid:2000019; rev:1;)
-log tcp $WEB_SERVER any -> any any (msg:"Trafic TCP depuis serveur web"; sid:2000020; rev:1;)
+log tcp any any -> $WEB_SERVER any (msg:"Trafic TCP vers serveur web"; sid:2000030; rev:1;)
+log tcp $WEB_SERVER any -> any any (msg:"Trafic TCP depuis serveur web"; sid:2000031; rev:1;)
 
 # Surveillance des connexions HTTP
-alert tcp any any -> $WEB_SERVER $HTTP_PORTS (msg:"Connexion HTTP vers serveur web"; flow:to_server,established; sid:2000021; rev:1; classtype:misc-activity;)
+alert tcp any any -> $WEB_SERVER $HTTP_PORTS (msg:"Connexion HTTP vers serveur web"; flow:to_server,established; sid:2000032; rev:1; classtype:misc-activity;)
 
 # Surveillance des connexions SSH
-alert tcp any any -> $WEB_SERVER $SSH_PORTS (msg:"Connexion SSH vers serveur web"; flow:to_server,established; flags:S; sid:2000022; rev:1; classtype:misc-activity;)
+alert tcp any any -> $WEB_SERVER $SSH_PORTS (msg:"Connexion SSH vers serveur web"; flow:to_server,established; flags:S; sid:2000033; rev:1; classtype:misc-activity;)
 
 # ===== RÈGLES ICMP (conservation des règles ping originales) =====
-alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Request détecté"; itype:8; sid:2000023; rev:1;)
-alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Reply détecté"; itype:0; sid:2000024; rev:1;)
-log icmp any any -> any any (msg:"Trafic ICMP logged"; sid:2000025; rev:1;)
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Request détecté"; itype:8; sid:2000034; rev:1;)
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Reply détecté"; itype:0; sid:2000035; rev:1;)
+log icmp any any -> any any (msg:"Trafic ICMP logged"; sid:2000036; rev:1;)
 EOF
 
 # Création d'un script de démarrage pour Snort

@@ -6,5 +6,6 @@ set -e
 bash networkConfig.sh
 bash installTools.sh
 bash configSnort.sh
+bash configSyslog.sh
 
 echo "Installation completed successfully."
