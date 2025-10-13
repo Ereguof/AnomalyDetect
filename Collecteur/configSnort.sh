@@ -76,6 +76,3 @@ alert tcp any any -> any 22 (msg:"SSH brute/exfil heuristic - many packets to SS
 EOF
 
 echo "Configuration Snort terminée"
-echo "Démarrer Snort: sudo snort -A fast -c /etc/snort/snort.conf -l /var/log/snort -i INTERFACE"
-echo "Voir alertes: tail -f /var/log/snort/alert"
-echo "Arrêter: sudo pkill snort"
