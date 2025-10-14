@@ -23,7 +23,7 @@ chmod +x install.sh
 sudo ./install.sh
 ```
 
-### Démarrer Snort
+### ⚠️**Important**⚠️ -> Démarrer Snort
 
 Dans un terminal, lancer la commande suivante et la garder en route.
 ```bash
