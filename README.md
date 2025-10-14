@@ -22,6 +22,7 @@ Pour créer notre solution, nous avons combiné 4 outils avec chacun leur rôle 
 
 - Snort en tant qu'IDS pour analyser le trafic réseau et faire remonter les alertes
 - Syslog-ng pour collecter les logs sur les machines sous surveillance
+- Filebeat pour ingérer les logs
 - Elasticsearch en tant que base de données pour les logs
 - Kibana pour la visualisation des logs et des alertes 
 
