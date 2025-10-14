@@ -1,23 +1,29 @@
 # Configuration de la VM Attaquant
-
-- Connectez-vous à la VM Attaquant avec les identifiants suivants (en QWERTY) :
+## 🚀 Installation Automatique
+### Se connecter à la VM
+- Connectez-vous à la VM Collecteur avec les identifiants suivants (en QWERTY) :
   - Nom d'utilisateur : `debian`
   - Mot de passe : `debian`
 
+### Passer administrateur 
 - Ouvrez un terminal et passez en mode superutilisateur avec la commande `su -` et le mot de passe `debian`
 
-- Clonez le dépôt GitHub contenant les scripts d'installation :
-  ```bash
-    git clone https://github.com/Ereguof/AnomalyDetect.git
-    cd AnomalyDetect/Attaquant
-    ```
 
-- Exécutez le script d'installation :
-    ```bash
-        bash install.sh
-     ```
+### Cloner le repository
+```bash
+git clone https://github.com/Ereguof/AnomalyDetect.git
+cd AnomalyDetect/Collecteur
+```
 
-- Enfin, placez vous dans le répertoire `/root` pour être prêt à lancer les attaques :
+### Lancer l'installation complète
+```bash
+chmod +x install.sh
+sudo ./install.sh
+```
+
+### Aller dans le bon répertoire
+
+Enfin, placez vous dans le répertoire `/root` pour être prêt à lancer les attaques :
   ```bash
     cd /root
-    ```
+  ```
