@@ -13,9 +13,10 @@ Voici les étapes pour configurer VirtualBox afin de simuler le réseau d'entrep
    - Ajouter les Guest Additions
    - Allouer au moins 2048 MB de RAM et 2 CPU
    - Créer un disque dur virtuel de type VDI, dynamiquement alloué, avec une taille d’au moins 20 GB
-4. Créer 2 clones de cette VM pour obtenir les 3 machines nécessaires (clic droit sur la VM > "Cloner") et nommez-les respectivement "ServeurWeb" et "Attaquant".
-5. Configurer les cartes réseau de chaque VM :
+4. Configurer les cartes réseau de chaque VM :
     - Aller dans les paramètres de chaque VM > "Réseau"
-    - Activer la carte réseau 1 et choisir "Réseau interne"
-    - Nommer le réseau interne (ex : "AnomalyDetectNet") pour que toutes les VM soient sur le même réseau
-    - Cocher "Mode Promiscuous" sur "Autoriser tout"
+    - Activer la carte réseau 1 en mode d'accès réseau **NAT**
+    - Activer la carte réseau 2 et choisir **Réseau interne**
+       -  Nommer le réseau interne (ex : "AnomalyDetectNet") pour que toutes les VM soient sur le même réseau
+       - Cocher "Mode Promiscuous" sur "Autoriser tout"
+5. Créer 2 clones de cette VM pour obtenir les 3 machines nécessaires (clic droit sur la VM > "Cloner") et nommez-les respectivement "ServeurWeb" et "Attaquant".
