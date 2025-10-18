@@ -5,10 +5,10 @@ sudo apt update && apt install -y syslog-ng
 # Créer le dossier pour les logs Snort
 sudo mkdir -p /var/log/snort
 sudo chown root:root /var/log/snort
-sudo chmod 750 /var/log/snort
+sudo chmod 777 /var/log/snort
 
 # Créer une nouvelle configuration Syslog-NG dédiée à Snort
-cat << 'EOF' > /etc/syslog-ng/conf.d/snort.conf
+sudo tee << 'EOF' > /etc/syslog-ng/conf.d/snort.conf
 @version: 3.38
 
 # Source : messages locaux
