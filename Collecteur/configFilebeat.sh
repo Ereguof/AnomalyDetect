@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt install -y filebeat
+
 sudo tee /etc/filebeat/filebeat.yml > /dev/null << 'EOF'
 filebeat.inputs:
   - type: filestream
