@@ -92,6 +92,6 @@ Ces limites nous offrent aussi des pistes d'amélioration :
 - Intégrer plus d'outils et de visualisations pour couvrir une plus grande variété d'attaques possibles contre le système
 
 ## 🤖 Utilisation de l'IA générative
-Production partagée avec l'IA générative pour la production de code : 
+Production partagée avec l'IA générative pour la production de code et aide pour l'écriture des différents readme : 
 
 ![Pictogramme IA](Documentation/Images/IAg_partagee_compact.png)
