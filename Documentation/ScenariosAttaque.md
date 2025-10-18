@@ -5,13 +5,17 @@
 
 L’attaquant étant déjà sur le réseau, il a déjà sondé ce dernier afin de découvrir quels sont les appareils présents. Son attention se porte sur un serveur web dont il scanne les ports. Le balayage de ports permet de récupérer beaucoup d’informations sur la cible, notamment ses ports ouverts.
 
+### Attaque 1.1
 Tout d'abord, pour vérifier si le serveur qu'il veut attaquer est actif, il va pouvoir effectuer un ping comme suit :
 
 `ping 10.0.0.1`
 
+Pour le MITRE, cela correspond dans la phase Reconnaissance à Active Scanning (https://attack.mitre.org/techniques/T1595), un ping sert à découvrir les hôtes vivants, c’est un scan actif qui peut laisser des traces sur le réseau et dans les logs.
+
 Une alerte est attendue.
 
-Pour le MITRE, cela correspond dans la phase Reconnaissance au Active Scanning (https://attack.mitre.org/techniques/T1595), on scanne activement une machine et cela peut laisser des traces, c’est plus visible qu’une sonde, mais récolte beaucoup plus d’informations. 
+
+## Attaque 1.2
 
 L’outil utilisé ici est **nmap**, un scanner de ports qui permet d’avoir une meilleure idée de la surface d’attaque disponible sur le serveur web.
 
@@ -20,6 +24,9 @@ L’attaque se réalise comme ceci à partir de la VM de l’attaquant :
 `nmap 10.0.0.1`
 
 2 ports devraient être ouverts sur le serveur web : **SSH** (port 22) et **HTTP** (port 80)
+
+
+Pour le MITRE, cela correspond dans la phase Reconnaissance au Active Scanning (https://attack.mitre.org/techniques/T1595), on scanne activement une machine et cela peut laisser des traces, c’est plus visible qu’une sonde, mais récolte beaucoup plus d’informations. 
 
 Une alerte est attendue.
 
