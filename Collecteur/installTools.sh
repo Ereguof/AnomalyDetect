@@ -70,6 +70,8 @@ sudo make install
 #Vérification de l'installation
 snort -V 
 
+sudo apt update
+
 sudo systemctl enable kibana
 sudo systemctl enable elasticsearch
 sudo systemctl start kibana
