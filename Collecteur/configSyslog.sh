@@ -1,11 +1,6 @@
 #!/bin/bash
 
-set -e 
-
-# Vérifier si Syslog-NG est installé, sinon l’installer
-if ! command -v syslog-ng &> /dev/null; then
-    apt update && apt install -y syslog-ng
-fi
+sudo apt update && apt install -y syslog-ng
 
 # Créer le dossier pour les logs Snort
 sudo mkdir -p /var/log/snort
@@ -44,11 +39,12 @@ log {
 };
 EOF
 
-# Redémarrer Syslog-NG pour appliquer la configuration
-systemctl restart syslog-ng
+# Démarrer  Syslog-NG
+sudo systemctl start syslog-ng
+sudo systemctl enable syslog-ng
 
 # Vérifier que le service fonctionne
-systemctl is-active --quiet syslog-ng
+sudo systemctl is-active --quiet syslog-ng
 
 
 # Snort peut maintenant envoyer ses alertes vers Syslog-NG avec :
