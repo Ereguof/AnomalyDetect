@@ -13,18 +13,18 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y build-essential libpcap-dev libpcre2-dev \
   libdumbnet-dev bison flex zlib1g-dev liblzma-dev openssl \
   libssl-dev pkg-config libhwloc-dev cmake libluajit-5.1-dev \
-  libnghttp2-dev libpcap0.8-dev git wget curl libtirpc-dev
+  libnghttp2-dev libpcap0.8-dev git wget curl libtirpc-dev default-jdk
 
 #Installation de syslog-ng
 sudo apt install syslog-ng
 
 #Installation Elastic search
 sudo apt install apt-transport-https
-sudo apt install -y kibana filebeat
 sudo apt install -y apt-transport-https curl gnupg
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/elastic-archive-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 sudo apt update
+sudo apt-get update && sudo apt-get install kibana
 
 #Création de l'utilisateur et du groupe Snort
 sudo groupadd -f snort
