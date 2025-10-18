@@ -25,6 +25,7 @@ curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearm
 echo "deb [signed-by=/usr/share/keyrings/elastic-archive-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 sudo apt update
 sudo apt-get update && sudo apt-get install kibana
+sudo apt-get install elasticsearch
 
 #Création de l'utilisateur et du groupe Snort
 sudo groupadd -f snort
@@ -71,6 +72,8 @@ snort -V
 
 sudo systemctl enable kibana
 sudo systemctl enable elasticsearch
+sudo systemctl start kibana
+sudo systemctl start elasticsearch
 
 #Création des répertoires nécessaires
 sudo mkdir /etc/snort
