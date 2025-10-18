@@ -43,10 +43,13 @@ Une architecture plus précise du réseau et des outils sont visible sur ce [Dra
 
 ## 🚀 Installation
 
+À savoir que l'installation des outils nécessaire ne peut pas se faire sur le réseau **Eduroam** dû au fait que ce réseau bloque les ports dont les VMs ont besoins pour les installations avec `apt`
+
 ### VirtualBox 
 
 Les détails de la configuration de VirtualBox sont disponibles dans le fichier [Documentation/ConfigurationVirtualBox.md](Documentation/ConfigurationVirtualBox.md).
-Si vous rencontrez des problèmes de connections internet, veuillez activer l'interface **enp0s3** dans les paramètres de la machine Linux concernée.
+Si vous rencontrez des problèmes de connections internet, veuillez activer l'interface **enp0s3** dans les paramètres de la machine Linux concernée ou
+`sudo ip link set enp0s3 up`
 
 ### Collecteur 
 
