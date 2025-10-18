@@ -46,6 +46,7 @@ Une architecture plus précise du réseau et des outils sont visible sur ce [Dra
 ### VirtualBox 
 
 Les détails de la configuration de VirtualBox sont disponibles dans le fichier [Documentation/ConfigurationVirtualBox.md](Documentation/ConfigurationVirtualBox.md).
+Si vous rencontrez des problèmes de connections internet, veuillez activer l'interface **enp0s3** dans les paramètres de la machine Linux concernée.
 
 ### Collecteur 
 
