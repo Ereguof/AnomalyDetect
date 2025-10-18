@@ -40,12 +40,8 @@ log {
 EOF
 
 # Démarrer  Syslog-NG
-sudo systemctl start syslog-ng
 sudo systemctl enable syslog-ng
-
-# Vérifier que le service fonctionne
-sudo systemctl is-active --quiet syslog-ng
-
+sudo systemctl restart syslog-ng
 
 # Snort peut maintenant envoyer ses alertes vers Syslog-NG avec :
 #     output alert_syslog: LOG_LOCAL1 LOG_ALERT
