@@ -1,9 +1,15 @@
 
 # Scénarios d'attaque
 
-## Attaque 1 - Scan de ports
+## Attaque 1 - Ping et Scan de ports
 
 L’attaquant étant déjà sur le réseau, il a déjà sondé ce dernier afin de découvrir quels sont les appareils présents. Son attention se porte sur un serveur web dont il scanne les ports. Le balayage de ports permet de récupérer beaucoup d’informations sur la cible, notamment ses ports ouverts.
+
+Tout d'abord, pour vérifier si le serveur qu'il veut attaquer est actif, il va pouvoir effectuer un ping comme suit :
+
+`ping 10.0.0.1`
+
+Une alerte est attendue.
 
 Pour le MITRE, cela correspond dans la phase Reconnaissance au Active Scanning (https://attack.mitre.org/techniques/T1595), on scanne activement une machine et cela peut laisser des traces, c’est plus visible qu’une sonde, mais récolte beaucoup plus d’informations. 
 
@@ -15,7 +21,7 @@ L’attaque se réalise comme ceci à partir de la VM de l’attaquant :
 
 2 ports devraient être ouverts sur le serveur web : **SSH** (port 22) et **HTTP** (port 80)
 
-Des logs / une alerte sont attendus : 
+Une alerte est attendue.
 
 
 ## Attaque 2 - Récupération des noms utilisateurs par injection SQL
@@ -37,7 +43,7 @@ Effectuez l’injection SQL suivante dans le formulaire web :
 
 Cela devrait retourner la liste complète des employés de l’entreprise en prenant avantage du code php vulnérable du serveur. Parmi ceux-ci, l’attaquant remarque **bob**, développeur web. Il a probablement travaillé sur ce serveur, et il vaut donc le coup de s’intéresser à son accès.
 
-Des logs / une alerte sont attendus :
+Une alerte est attendue.
 
 ## Attaque 3 - Brute-force sur un utilisateur
 
@@ -62,7 +68,7 @@ Il semblerait donc que bob utilise un mot de passe beaucoup trop faible (‘pass
 
 `ssh bob@10.0.0.1`
 
-Des logs / une alerte sont attendus :
+Une alerte est attendue.
 
 ## Attaque 4 - Escalade de privilège sur le serveur 
 
@@ -81,7 +87,7 @@ Cette commande permet de garder les privilèges obtenus en utilisant gcc pour ex
 
 En faisant whoami, cela devrait renvoyer root. L’attaquant a donc un accès total au serveur web.
 
-Des logs / une alerte sont attendus :
+Une alerte est attendue.
 
 ## Attaque 5 - Exfiltration de données
 
@@ -100,5 +106,5 @@ Puis se connecter en donnant le mot de passe de la VM attaquant.
 
 Si tout s’est bien passé, l’image devrait être accessible sur la VM attaquant, et nous vous laissons découvrir ce fichier primordial pour la sécurité du Canada.
 
-Des logs / une alerte sont attendus :
+Une alerte est attendue.
 
