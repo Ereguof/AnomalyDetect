@@ -13,7 +13,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y build-essential libpcap-dev libpcre2-dev \
   libdumbnet-dev bison flex zlib1g-dev liblzma-dev openssl \
   libssl-dev pkg-config libhwloc-dev cmake libluajit-5.1-dev \
-  libnghttp2-dev libpcap0.8-dev git wget curl libtirpc-dev default-jdk
+  libnghttp2-dev libpcap0.8-dev git wget curl libtirpc-dev
 
 #Installation de syslog-ng
 sudo apt install syslog-ng
