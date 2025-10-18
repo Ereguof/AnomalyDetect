@@ -8,7 +8,7 @@ sudo chown root:root /var/log/snort
 sudo chmod 777 /var/log/snort
 
 # Créer une nouvelle configuration Syslog-NG dédiée à Snort
-sudo tee << 'EOF' > /etc/syslog-ng/conf.d/snort.conf
+sudo tee /etc/syslog-ng/conf.d/snort.conf > /dev/null << 'EOF'
 @version: 3.38
 
 # Source : messages locaux
