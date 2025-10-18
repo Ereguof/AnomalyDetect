@@ -14,7 +14,8 @@ sudo chmod -R 5775 /var/log/snort
 
 # Configuration de base de snort.conf
 sudo tee /etc/snort/snort.conf > /dev/null << 'EOF'
-# Chemins var RULE_PATH /etc/snort/rules
+# Chemins 
+var RULE_PATH /etc/snort/rules
 var SO_RULE_PATH /etc/snort/so_rules 
 var PREPROC_RULE_PATH /etc/snort/preproc_rules 
 var WHITE_LIST_PATH /etc/snort/rules 
@@ -41,9 +42,9 @@ EOF
 # Configuration des règles pour capturer les pings ICMP
 sudo tee /etc/snort/rules/local.rules > /dev/null << 'EOF'
 # Détection
-alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Request détecté"; itype:8; sid:1000001; rev:1;)
-alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Reply détecté"; itype:0; sid:1000002; rev:1;)
-log icmp any any -> any any (msg:"Trafic ICMP logged"; sid:1000003; rev:1;)
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Request détecté"; itype:8; sid:1; rev:1;)
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Reply détecté"; itype:0; sid:2; rev:1;)
+log icmp any any -> any any (msg:"Trafic ICMP logged"; sid:3; rev:1;)
 
 # local.rules - détections ciblées pour TP
 # 1) Scan HTTP User-Agent Nmap
