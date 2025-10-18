@@ -3,8 +3,8 @@
 
 bash networkConfig.sh
 bash installTools.sh
-bash configSnort.sh
 bash configSyslog.sh
+bash configSnort.sh
 bash configFilebeat.sh
 
 echo "Installation completed successfully."
