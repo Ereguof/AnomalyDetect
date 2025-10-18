@@ -13,7 +13,7 @@
 ```bash
 apt install -y git
 git clone https://github.com/Ereguof/AnomalyDetect.git
-cd AnomalyDetect/Collecteur
+cd AnomalyDetect/Attaquant
 ```
 
 ### Lancer l'installation complète
