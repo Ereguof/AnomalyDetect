@@ -20,8 +20,11 @@ sudo apt install syslog-ng
 
 #Installation Elastic search
 sudo apt install apt-transport-https
-sudo apt update && apt install elasticsearch
 sudo apt install -y kibana filebeat
+sudo apt install -y apt-transport-https curl gnupg
+curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/elastic-archive-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+sudo apt update
 
 #Création de l'utilisateur et du groupe Snort
 sudo groupadd -f snort
