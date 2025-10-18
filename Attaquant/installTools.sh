@@ -10,7 +10,7 @@ sudo apt update
 sudo apt install -y nmap hydra openssh-server
 
 # Créer une petite wordlist
-cat <<EOL > wordlist.txt
+cat <<EOL > /root/wordlist.txt
 123456
 admin
 letmein
@@ -24,3 +24,4 @@ sudo systemctl enable ssh
 sudo systemctl start ssh
 
 echo "Installation terminée. Nmap, Hydra, OpenSSH et wordlist.txt sont prêts. La machine peut recevoir des connexions SCP."
+
