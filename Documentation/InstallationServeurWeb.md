@@ -15,7 +15,7 @@
 ```bash
 apt install -y git
 git clone https://github.com/Ereguof/AnomalyDetect.git
-cd AnomalyDetect/Collecteur
+cd AnomalyDetect/ServeurWeb
 ```
 
 ### Lancer l'installation complète

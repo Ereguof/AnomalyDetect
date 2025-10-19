@@ -4,5 +4,5 @@
 set -e
 
 bash networkConfig.sh
-bash installTools.s
+bash installTools.sh
 echo "Installation completed successfully."
