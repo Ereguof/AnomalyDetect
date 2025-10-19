@@ -45,7 +45,8 @@ include $RULE_PATH/local.rules
 EOF
 
 # Ajout du fichier unicode.map
-sudo wget -O /etc/snort/unicode.map https://raw.githubusercontent.com/snort3/snort3/master/etc/unicode.map
+sudo wget -O /etc/snort/unicode.map https://raw.githubusercontent.com/eldondev/Snort/refs/heads/master/etc/unicode.map
+
 sudo chmod 644 /etc/snort/unicode.map
 
 # Configuration des règles pour capturer les pings ICMP
