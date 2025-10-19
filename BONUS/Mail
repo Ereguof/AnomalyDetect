@@ -1,1 +1,62 @@
+# Alertes par Mail
 
+Pour cette partie bonus, on créer un mini système d'alertes par mail, fonctionannt sans internet après instalaltion des packetages pour les besoins du TP.
+L'utilisateur recevant les mail sera "debian".
+
+Pour que les scripts fonctionnent, il est nécessaire d’installer quelques paquets :  
+
+```
+sudo apt install postfix mailutils libnotify-bin sox
+```
+
+Pour postfix, choisir "Internal Site"
+
+Voici un premier script Alert.sh qui permet de créer une petite alerte visuelle et sonore lorsqu'un mail est reçu.
+On pourra le lancer avec ./Alert.sh & pour le faire tourner en arrière plan ou le lancer au démarrage de la machine via le systemd ou crontab :
+
+```
+#!/bin/bash
+
+MAILFILE="/var/mail/debian"
+LASTSIZE=0
+
+while true; do
+    SIZE=$(stat -c%s "$MAILFILE")
+    if [ "$SIZE" -gt "$LASTSIZE" ]; then
+        LASTMAIL=$(tail -c $((SIZE - LASTSIZE)) "$MAILFILE")
+        SUBJECT=$(echo "$LASTMAIL" | grep -m 1 "^Subject:" | sed 's/^Subject: //')
+        notify-send "Nouveau mail" "$SUBJECT"
+        play -nq -t alsa synth 0.2 sine 880
+        LASTSIZE=$SIZE
+    fi
+    sleep 5
+done
+```
+
+Voici un deuxième script mail_alert_snort.sh qui envoie un mail à debian en cas de nouvelle ligne de log faite par snort : 
+
+```
+#!/bin/bash
+
+LOGFILE="/var/log/snort/snort_syslog.log"
+STATEFILE="/tmp/snort_lastline"
+SLEEP_INTERVAL=5 
+
+[ ! -f "$STATEFILE" ] && echo 0 > "$STATEFILE"
+LASTLINE=$(cat "$STATEFILE")
+
+while true; do
+    TOTAL=$(wc -l < "$LOGFILE")
+    if [ "$TOTAL" -gt "$LASTLINE" ]; then
+        tail -n $((TOTAL-LASTLINE)) "$LOGFILE" | while read -r LINE; do
+
+            echo "$LINE" | mail -s "Nouvelle alerte Snort" debian@localhost
+        done
+        
+        echo "$TOTAL" > "$STATEFILE"
+        LASTLINE=$TOTAL
+    fi
+    
+    sleep $SLEEP_INTERVAL
+done
+```
