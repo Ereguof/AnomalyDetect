@@ -30,6 +30,11 @@ preprocessor stream5_udp: timeout 30
 preprocessor stream5_icmp: timeout 30
 preprocessor frag3_global: max_frags 65536
 preprocessor frag3_engine: policy linux detect_anomalies
+preprocessor http_inspect: global iis_unicode_map unicode.map 1252
+preprocessor http_inspect_server: server default \
+	profile all \
+	ports { 80 } \
+	oversize_dir_length 500
 # Sortie (Outputs)
 # Envoie les alertes vers Syslog-NG (facility local1, priority ALERT)
 output alert_syslog: LOG_LOCAL1 LOG_ALERT
@@ -38,6 +43,10 @@ output alert_syslog: LOG_LOCAL1 LOG_ALERT
 #Inclusion des règles
 include $RULE_PATH/local.rules
 EOF
+
+# Ajout du fichier unicode.map
+sudo wget -O /etc/snort/unicode.map https://raw.githubusercontent.com/snort3/snort3/master/etc/unicode.map
+sudo chmod 644 /etc/snort/unicode.map
 
 # Configuration des règles pour capturer les pings ICMP
 sudo tee /etc/snort/rules/local.rules > /dev/null << 'EOF'
