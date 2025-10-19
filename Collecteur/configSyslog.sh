@@ -46,4 +46,4 @@ sudo systemctl restart syslog-ng
 # Snort peut maintenant envoyer ses alertes vers Syslog-NG avec :
 #     output alert_syslog: LOG_LOCAL1 LOG_ALERT
 # Les logs seront enregistrés dans :
-#     /etc/syslog-ng/conf.d/snort.conf
+#     /var/log/snort/snort_syslog.log
