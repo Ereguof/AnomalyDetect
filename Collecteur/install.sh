@@ -6,5 +6,6 @@ bash installTools.sh
 bash configSyslog.sh
 bash configSnort.sh
 bash configFilebeat.sh
+bash configElasticsearch.sh
 
 echo "Installation completed successfully."
