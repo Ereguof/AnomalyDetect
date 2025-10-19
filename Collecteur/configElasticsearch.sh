@@ -13,3 +13,6 @@ xpack.security.enrollment.enabled: false
 xpack.security.http.ssl.enabled: false
 xpack.security.transport.ssl.enabled: false
 EOF
+
+sudo systemctl enable elasticsearch
+sudo systemctl restart elasticsearch
