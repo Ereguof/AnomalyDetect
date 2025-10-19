@@ -39,7 +39,7 @@ Ouvrez votre navigateur et allez sur : `http://127.0.0.1:5601`
 
 ### 2. Créer une Data View
 1. **Navigation** : Aller dans `Management` → `Stack management`
-2. **Data Views** : Cliquer sur `Data views` dans le menu latéral
+2. **Data Views** : Cliquer sur `Kibana` -> `Data views` dans le menu latéral
 3. **Création** : Cliquer sur `Create data view`
 4. **Configuration** :
    - **Name** : `snort-logs`
