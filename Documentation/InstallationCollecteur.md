@@ -28,7 +28,7 @@ sudo ./install.sh
 
 Dans un terminal, lancer la commande suivante et la garder en route.
 ```bash
-sudo snort -c /etc/snort/snort.conf
+sudo snort -c /etc/snort/snort.conf -i enp0s8
 ```
 Cela permet de lancer Snort avec un fichier de configuration spécifique.
 
