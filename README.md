@@ -55,6 +55,8 @@ Si vous rencontrez des problèmes de connections internet, veuillez activer l'in
 
 Les détails de l'installation et de la configuration du Collecteur sont disponibles dans le fichier [Documentation/InstallationCollecteur.md](Documentation/InstallationCollecteur.md).
 
+Un bonus d'alertes par mail est également disponible dans le fichier [Documentation/Mail.md](Documentation/Mail.md).
+
 ### Serveur Web 
 
 Les détails de l'installation et de la configuration du Serveur Web sont disponibles dans le fichier [Documentation/InstallationServeurWeb.md](Documentation/InstallationServeurWeb.md).
