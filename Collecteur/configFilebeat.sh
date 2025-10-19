@@ -27,5 +27,5 @@ EOF
 sudo systemctl enable filebeat
 sudo systemctl start filebeat
 
-#acces aux logs dans ES avec filebeat http://127.0.0.1:9200/filebeat-9.1.5/_search?pretty
+#acces aux logs dans ES avec filebeat http://127.0.0.1:9200/filebeat-*/_search?pretty
 
