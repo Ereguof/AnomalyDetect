@@ -43,7 +43,7 @@ L’outil utilisé sera le navigateur web Firefox (installé par défaut avec De
 
 L’attaque se réalise comme ceci à partir de la VM de l’attaquant : 
 
-Naviguez vers http://10.0.0.1/index.php
+Naviguez vers http://10.0.0.1/index.php avec Firefox
 
 Effectuez l’injection SQL suivante dans le formulaire web : 
 
@@ -118,4 +118,5 @@ Si tout s’est bien passé, l’image devrait être accessible sur la VM attaqu
 
 Une alerte de cette forme est attendue sur Kibana :
 ![Alerte Exfiltration](Images/exfiltration.png)
+
 
