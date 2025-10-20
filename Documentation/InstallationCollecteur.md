@@ -32,15 +32,19 @@ sudo snort -c /etc/snort/snort.conf -i enp0s8
 ```
 Cela permet de lancer Snort avec un fichier de configuration spécifique.
 
+Ensuite, faites l'installation [InstallationServeurWeb.md](InstallationServeurWeb.md) et revenez ici pour la suite (nécéssaire pour la configuration de Kibana).
+
+Une fois que la machine Serveur Web est installée et configurée, faites un ping vers celle-ci : `ping 10.0.0.1`. Cela permet à Kibana de détecter l'indice et simplifie sa configuration.
+
 ## 📊 Configuration Kibana
 
 ### 1. Accéder à Kibana
-Ouvrez votre navigateur et allez sur : `http://127.0.0.1:5601`
+Ouvrez votre navigateur et allez sur : `http://127.0.0.1:5601`, puis choisissez "Explore on my own"
 
 ### 2. Créer une Data View
 1. **Navigation** : Aller dans `Management` → `Stack management`
 2. **Data Views** : Cliquer sur `Kibana` -> `Data views` dans le menu latéral
-3. **Création** : Cliquer sur `Create data view`
+3. **Création** : Cliquer sur `Create a data view against hidden, system or default indices` tout en bas
 4. **Configuration** :
    - **Name** : `snort-logs`
    - **Index pattern** : `filebeat-*`
