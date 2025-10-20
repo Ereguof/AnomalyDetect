@@ -2,6 +2,7 @@
 
 MAILFILE="/var/mail/debian"
 LASTSIZE=0
+touch $MAILFILE
 
 while true; do
     SIZE=$(stat -c%s "$MAILFILE")
