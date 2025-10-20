@@ -41,7 +41,7 @@ Ouvrez votre navigateur et allez sur : `http://127.0.0.1:5601`, puis choisissez 
 ### 2. Créer une Data View
 1. **Navigation** : Aller dans `Management` → `Stack management`
 2. **Data Views** : Cliquer sur `Kibana` -> `Data views` dans le menu latéral
-3. **Création** : Cliquer sur `Create a data view against hidden, system or default indices` tout en bas
+3. **Création** : Cliquer sur `Create a data view`
 4. **Configuration** :
    - **Name** : `snort-logs`
    - **Index pattern** : `filebeat-*`
