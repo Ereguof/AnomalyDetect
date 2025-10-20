@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAILFILE="/var/mail/debian"
+MAILFILE="/var/mail/root"
 LASTSIZE=0
 touch $MAILFILE
 
