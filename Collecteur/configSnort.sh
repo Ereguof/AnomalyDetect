@@ -52,36 +52,23 @@ sudo chmod 644 /etc/snort/unicode.map
 # Configuration des règles pour capturer les pings ICMP
 sudo tee /etc/snort/rules/local.rules > /dev/null << 'EOF'
 # Détection
+# local.rules - détections ciblées pour TP
+
+# 1) Ping ICMP
 alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Request détecté"; itype:8; sid:1; rev:1;)
 alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Reply détecté"; itype:0; sid:2; rev:1;)
 log icmp any any -> any any (msg:"Trafic ICMP logged"; sid:3; rev:1;)
 
-# local.rules - détections ciblées pour TP
-# 1) Scan HTTP User-Agent Nmap
-alert tcp any any -> any 80 (msg:"SCAN - HTTP User-Agent contains Nmap"; content:"User-Agent" ; http_header; content:"Nmap" ; http_header; nocase; sid:1000001; rev:1;)
-
 # 2) SYN flood / many SYNs (port scanning)
 alert tcp any any -> any any (msg:"SCAN - many SYNs from same src"; flags:S; threshold:type limit, track by_src, count 20, seconds 10; sid:1000002; rev:1;)
 
-# 3) SQLi - OR 1=1 in client body
-alert tcp any any -> any 80 (msg:"SQLi - pattern OR 1=1"; flow:to_server,established; content:"or 1=1"; nocase; http_client_body; sid:1000010; rev:1;)
-
-alert tcp any any -> any 80 (msg:"SQLi - simple OR 1=1 in POST body"; flow:to_server,established; content:"or 1=1"; nocase; http_client_body; sid:1001010; rev:1;)
-
+# 3) SQLi - OR 1=1
 alert tcp any any -> any 80 (msg:"SQLi - OR 1=1 in URI"; flow:to_server,established; uricontent:"or 1=1"; nocase; sid:1001011; rev:1;)
 
-# 4) SQLi - UNION SELECT in URI
-alert tcp any any -> any 80 (msg:"SQLi - UNION SELECT in URI"; flow:to_server,established; content:"union"; nocase; content:"select"; nocase; http_uri; sid:1000011; rev:1;)
-
-# 5) SSH connection attempt (each new session to port 22)
-#alert tcp any any -> any 22 (msg:"SSH - connection attempt"; flow:to_server,established; sid:1000020; rev:1;)
-
-# 6) SSH brute-force - many connections from same src to port 22
+# 4) SSH brute-force - many connections from same src to port 22
 alert tcp any any -> any 22 (msg:"SSH - possible brute force (many conn attempts)"; flags:S; threshold:type limit, track by_src, count 10, seconds 60; sid:1000021; rev:1;)
 
-# 7) Outbound SSH session started from internal host (to detect exfil attempt)
-#alert tcp any any -> any 22 (msg:"Outbound SSH from internal host"; flow:established,to_server; sid:1000030; rev:1;)
-
+# 5) Outbound SSH session started from internal host (to detect exfil attempt)
 alert tcp any any -> any 22 (msg:"SSH brute/exfil heuristic - many packets to SSH"; flags:PA; threshold:type both, track by_src, count 10 , seconds 300; sid:1001031; rev:1;)
 
 EOF
