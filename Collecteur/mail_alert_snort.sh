@@ -12,7 +12,7 @@ while true; do
     if [ "$TOTAL" -gt "$LASTLINE" ]; then
         tail -n $((TOTAL-LASTLINE)) "$LOGFILE" | while read -r LINE; do
 
-            echo "$LINE" | mail -s "Nouvelle alerte Snort" debian@localhost
+            echo "$LINE" | mail -s "Nouvelle alerte Snort" root@localhost
         done
         
         echo "$TOTAL" > "$STATEFILE"
