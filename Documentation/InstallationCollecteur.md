@@ -32,9 +32,6 @@ sudo snort -c /etc/snort/snort.conf -i enp0s8
 ```
 Cela permet de lancer Snort avec un fichier de configuration spécifique.
 
-Ensuite, faites l'installation [InstallationServeurWeb.md](InstallationServeurWeb.md) et revenez ici pour la suite (nécéssaire pour la configuration de Kibana).
-
-Une fois que la machine Serveur Web est installée et configurée, faites un ping vers celle-ci : `ping 10.0.0.1`. Cela permet à Kibana de détecter l'indice et simplifie sa configuration.
 
 ## 📊 Configuration Kibana
 
