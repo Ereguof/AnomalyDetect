@@ -39,6 +39,14 @@ log {
 };
 EOF
 
+
+# Ajout pour configuration initiale
+sudo tee /var/log/snort/snort_syslog.log > /dev/null << 'EOF'
+
+Oct 19 15:00:00 Collecteur snort[10000]: Snort activé avec succès
+
+EOF
+
 # Démarrer  Syslog-NG
 sudo systemctl enable syslog-ng
 sudo systemctl restart syslog-ng
