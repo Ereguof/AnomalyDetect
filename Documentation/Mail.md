@@ -6,10 +6,10 @@ L'utilisateur qui reçoit les mails est "debian".
 Pour que les scripts fonctionnent, il est nécessaire d’installer quelques paquets :  
 
 ```
-sudo apt install postfix mailutils libnotify-bin sox
+sudo apt install postfix mailutils libnotify-bin sox -y
 ```
 
-Pour postfix, lors de la configuration vous devrez choisir "Internal Site"
+Pour postfix, lors de la configuration vous devrez choisir "Internet Site"
 
 Le premier script **alert.sh** permet de créer une petite alerte visuelle et sonore lorsqu'un mail est reçu.
 On pourra le lancer avec `bash /root/AnomalyDetect/Collecteur/alert.sh &` pour le faire tourner en arrière plan ou le lancer au démarrage de la machine via le systemd ou crontab :
